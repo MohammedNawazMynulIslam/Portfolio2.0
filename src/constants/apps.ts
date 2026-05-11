@@ -1,5 +1,4 @@
 import {
-  FileText,
   FolderOpen,
   Globe,
   Image,
@@ -73,21 +72,15 @@ export const DOCK_APPS: DockApp[] = [
     gradient: "from-teal-300 via-cyan-400 to-blue-500",
   },
   {
-    id: "resume",
-    label: "Resume",
-    icon: FileText,
-    gradient: "from-fuchsia-400 via-violet-500 to-purple-600",
-  },
-  {
-    id: "contact",
-    label: "Contact",
-    icon: Mail,
-    gradient: "from-orange-300 via-rose-400 to-pink-500",
-  },
-  {
     id: "photos",
     label: "Photos",
     icon: Image,
     gradient: "from-emerald-300 via-lime-400 to-yellow-400",
+  },
+  {
+    id: "contact",
+    label: "Contacts",
+    icon: Mail,
+    gradient: "from-orange-300 via-rose-400 to-pink-500",
   },
 ];

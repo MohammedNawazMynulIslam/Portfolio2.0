@@ -1,15 +1,14 @@
 "use client";
 
 import gsap from "gsap";
-import { Battery, Search, Wifi } from "lucide-react";
+import { Check, CircleUserRound, Search, SlidersHorizontal, Wifi } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useWindowStore } from "@/store/windowStore";
 
-const MENU_ITEMS = ["File", "Edit", "View", "Go", "Window", "Help"] as const;
-const BRAND_NAME = "Mynul";
-const BATTERY_LEVEL = "87%";
+const MENU_ITEMS = ["Projects", "Testimonials", "Contact", "Resume"] as const;
+const BRAND_NAME = "Mynul's Portfolio";
 
 function AppleLogo() {
   return (
@@ -38,6 +37,7 @@ function formatClock(date: Date) {
 
 export function Navbar() {
   const navbarRef = useRef<HTMLElement | null>(null);
+  const [showThemeMenu, setShowThemeMenu] = useState(true);
   const activeWindowId = useWindowStore((state) => state.activeWindowId);
   const activeWindowTitle = useWindowStore((state) =>
     state.activeWindowId ? state.windows[state.activeWindowId].title : BRAND_NAME,
@@ -76,26 +76,26 @@ export function Navbar() {
   return (
     <header
       ref={navbarRef}
-      className="glass fixed inset-x-0 top-0 z-[9999] h-7 font-georama text-[13px] text-white"
+      className="fixed inset-x-0 top-0 z-[9999] h-8 border-b border-black/10 bg-white/76 font-georama text-[13px] text-black shadow-[0_1px_10px_rgba(15,23,42,0.08)] backdrop-blur-2xl"
     >
-      <div className="flex h-full items-center justify-between gap-3 px-3 sm:px-4">
-        <div className="flex min-w-0 items-center gap-3">
+      <div className="relative flex h-full items-center justify-between gap-3 px-4 sm:px-5">
+        <div className="flex min-w-0 items-center gap-4">
           <button
             type="button"
             aria-label="Apple menu"
-            className="flex h-5 w-5 items-center justify-center rounded-md text-white/95 transition hover:bg-white/10"
+            className="flex h-5 w-5 items-center justify-center rounded-md text-black transition hover:bg-black/[0.08]"
           >
             <AppleLogo />
           </button>
-          <span className="truncate text-sm font-semibold text-white">
+          <span className="truncate text-[15px] font-bold text-black">
             {activeWindowId ? activeWindowTitle : BRAND_NAME}
           </span>
-          <nav className="hidden items-center gap-4 text-white/80 md:flex">
+          <nav className="hidden items-center gap-6 text-[13px] font-semibold text-black md:flex">
             {MENU_ITEMS.map((item) => (
               <button
                 key={item}
                 type="button"
-                className="menu-shimmer transition hover:text-white"
+                className="transition hover:text-black/60"
               >
                 {item}
               </button>
@@ -103,25 +103,46 @@ export function Navbar() {
           </nav>
         </div>
 
-        <div className="flex shrink-0 items-center gap-2 text-white/90 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-3 text-black sm:gap-4">
+          <Wifi className="h-4 w-4 stroke-[2.4]" />
           <button
             type="button"
             aria-label="Search"
-            className="flex h-5 w-5 items-center justify-center rounded-md transition hover:bg-white/10"
+            className="flex h-5 w-5 items-center justify-center rounded-md transition hover:bg-black/[0.08]"
           >
-            <Search className="h-3.5 w-3.5" />
+            <Search className="h-4 w-4 stroke-[2.4]" />
           </button>
-          <div className="flex items-center gap-1.5">
-            <Wifi className="h-3.5 w-3.5" />
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Battery className="h-3.5 w-3.5" />
-            <span className="hidden md:inline">{BATTERY_LEVEL}</span>
-          </div>
-          <span className="font-medium tracking-[0.01em] text-white">
+          <CircleUserRound className="h-4 w-4 stroke-[2.4]" />
+          <button
+            type="button"
+            aria-label="Theme menu"
+            className="relative flex h-5 w-5 items-center justify-center rounded-md transition hover:bg-black/[0.08]"
+            onClick={() => setShowThemeMenu((current) => !current)}
+          >
+            <SlidersHorizontal className="h-4 w-4 stroke-[2.4]" />
+          </button>
+          <span className="font-semibold tracking-normal text-black">
             {clock}
           </span>
         </div>
+
+        {showThemeMenu ? (
+          <div className="absolute right-[94px] top-[35px] w-[154px] overflow-hidden rounded-lg border border-black/10 bg-white/82 p-1 text-[13px] text-black shadow-[0_18px_42px_rgba(15,23,42,0.28)] backdrop-blur-2xl">
+            <button
+              type="button"
+              className="flex w-full items-center rounded-md px-3 py-1.5 text-left hover:bg-black/5"
+            >
+              Light Mode
+            </button>
+            <button
+              type="button"
+              className="flex w-full items-center justify-between rounded-md bg-[#0a84ff] px-3 py-1.5 text-left text-white"
+            >
+              <span>Dark Mode</span>
+              <Check className="h-3.5 w-3.5" />
+            </button>
+          </div>
+        ) : null}
       </div>
     </header>
   );

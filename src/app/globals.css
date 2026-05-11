@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Georama:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Georama:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500;700&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -28,6 +28,7 @@
   --color-glass-shadow: var(--glass-shadow);
   --font-georama: "Georama", sans-serif;
   --font-roboto-mono: "Roboto Mono", monospace;
+  --font-script: "Dancing Script", cursive;
   --font-sans: var(--font-georama);
   --font-mono: var(--font-roboto-mono);
 }
@@ -115,6 +116,10 @@ a {
 
 .dock-shadow {
   box-shadow: var(--dock-shadow);
+}
+
+.font-script {
+  font-family: var(--font-script);
 }
 
 .menu-shimmer {

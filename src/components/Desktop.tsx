@@ -3,11 +3,8 @@
 import gsap from "gsap";
 import { Draggable } from "gsap/Draggable";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import {
-  FileText,
-  FolderOpen,
-  Globe,
-  Image as ImageIcon,
   Info,
   MonitorSmartphone,
   PlusSquare,
@@ -25,43 +22,78 @@ type DesktopShortcut = {
   id: string;
   label: string;
   appId: "finder" | "resume" | "photos" | "safari";
-  icon: typeof FolderOpen;
+  iconSrc: string;
+  iconAlt: string;
   position: {
     x: number;
     y: number;
+  };
+  size?: {
+    w: number;
+    h: number;
   };
 };
 
 const INITIAL_SHORTCUTS: DesktopShortcut[] = [
   {
-    id: "finder-shortcut",
-    label: "Projects",
-    appId: "finder",
-    icon: FolderOpen,
-    position: { x: 36, y: 44 },
-  },
-  {
     id: "resume-shortcut",
-    label: "Resume",
+    label: "Resume.pdf",
     appId: "resume",
-    icon: FileText,
-    position: { x: 36, y: 154 },
+    iconSrc: "/images/pdf.png",
+    iconAlt: "PDF document",
+    position: { x: 118, y: 132 },
+    size: { w: 58, h: 58 },
   },
   {
-    id: "photos-shortcut",
-    label: "Gallery",
-    appId: "photos",
-    icon: ImageIcon,
-    position: { x: 36, y: 264 },
+    id: "project-1-shortcut",
+    label: "Project 1 (SnapCast)",
+    appId: "finder",
+    iconSrc: "/images/folder.png",
+    iconAlt: "Project folder",
+    position: { x: 0, y: 78 },
+    size: { w: 64, h: 60 },
   },
   {
-    id: "safari-shortcut",
-    label: "Browser",
-    appId: "safari",
-    icon: Globe,
-    position: { x: 36, y: 374 },
+    id: "project-2-shortcut",
+    label: "Project 2 (Converso)",
+    appId: "finder",
+    iconSrc: "/images/folder.png",
+    iconAlt: "Project folder",
+    position: { x: 0, y: 242 },
+    size: { w: 64, h: 60 },
+  },
+  {
+    id: "project-3-shortcut",
+    label: "Project 3 (PrepWise)",
+    appId: "finder",
+    iconSrc: "/images/folder.png",
+    iconAlt: "Project folder",
+    position: { x: 0, y: 386 },
+    size: { w: 64, h: 60 },
   },
 ];
+
+function getShortcutLayout(surfaceWidth: number) {
+  const rightBase = Math.max(560, surfaceWidth - 246);
+  const rightInward = Math.max(520, surfaceWidth - 306);
+  const rightFar = Math.max(600, surfaceWidth - 182);
+
+  return INITIAL_SHORTCUTS.map((shortcut) => {
+    if (shortcut.id === "project-1-shortcut") {
+      return { ...shortcut, position: { ...shortcut.position, x: rightBase } };
+    }
+
+    if (shortcut.id === "project-2-shortcut") {
+      return { ...shortcut, position: { ...shortcut.position, x: rightInward } };
+    }
+
+    if (shortcut.id === "project-3-shortcut") {
+      return { ...shortcut, position: { ...shortcut.position, x: rightFar } };
+    }
+
+    return shortcut;
+  });
+}
 
 function WindowLoadingSkeleton() {
   return (
@@ -189,6 +221,20 @@ export function Desktop() {
   }, [shortcuts]);
 
   useEffect(() => {
+    const updateShortcutLayout = () => {
+      const surfaceWidth = surfaceRef.current?.clientWidth ?? window.innerWidth;
+      setShortcuts(getShortcutLayout(surfaceWidth));
+    };
+
+    updateShortcutLayout();
+    window.addEventListener("resize", updateShortcutLayout);
+
+    return () => {
+      window.removeEventListener("resize", updateShortcutLayout);
+    };
+  }, []);
+
+  useEffect(() => {
     const handleWindowClick = () => {
       setContextMenu(null);
     };
@@ -244,16 +290,33 @@ export function Desktop() {
 
         <div
           ref={surfaceRef}
-          className="absolute inset-x-0 top-7 bottom-[90px] overflow-hidden"
+          className="absolute inset-x-0 top-8 bottom-0 overflow-hidden"
           onContextMenu={handleDesktopContextMenu}
         >
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_#1a3a5c_0%,_#0d1b2a_40%,_#0a0a1a_100%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(96,165,250,0.18),transparent_24%),radial-gradient(circle_at_bottom_left,rgba(168,85,247,0.14),transparent_30%)]" />
+          <Image
+            src="/images/wallpaper.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/[0.03]" />
+
+          <section
+            aria-label="Portfolio welcome"
+            className="pointer-events-none absolute left-1/2 top-[41%] z-10 w-[min(720px,62vw)] -translate-x-1/2 -translate-y-1/2 text-center text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)]"
+          >
+            <p className="text-[clamp(24px,2.4vw,36px)] font-normal leading-none">
+              Hey, welcome to my
+            </p>
+            <h1 className="font-script mt-2 text-[clamp(84px,9.6vw,142px)] font-normal leading-[0.78]">
+              portfolio
+            </h1>
+          </section>
 
           <div className="absolute inset-0">
             {shortcuts.map((shortcut) => {
-              const Icon = shortcut.icon;
-
               return (
                 <button
                   key={shortcut.id}
@@ -262,12 +325,19 @@ export function Desktop() {
                   }}
                   type="button"
                   onDoubleClick={() => openAppFromShortcut(shortcut.appId)}
-                  className="absolute flex w-20 cursor-default flex-col items-center text-center text-white drop-shadow-[0_6px_16px_rgba(0,0,0,0.32)]"
+                  className="absolute z-20 flex w-[150px] cursor-default flex-col items-center text-center text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.52)]"
                 >
-                  <span className="glass flex h-14 w-14 items-center justify-center rounded-2xl">
-                    <Icon className="h-8 w-8" />
+                  <span className="flex h-[72px] w-[86px] items-end justify-center">
+                    <Image
+                      src={shortcut.iconSrc}
+                      alt={shortcut.iconAlt}
+                      width={shortcut.size?.w ?? 64}
+                      height={shortcut.size?.h ?? 60}
+                      className="object-contain"
+                      draggable={false}
+                    />
                   </span>
-                  <span className="mt-2 rounded-md bg-black/25 px-2 py-0.5 text-xs font-medium">
+                  <span className="mt-1 text-[15px] font-medium leading-tight">
                     {shortcut.label}
                   </span>
                 </button>

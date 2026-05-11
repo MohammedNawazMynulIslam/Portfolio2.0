@@ -1,7 +1,7 @@
 "use client";
 
 import gsap from "gsap";
-import { Trash2 } from "lucide-react";
+import Image from "next/image";
 import { useMemo, useRef } from "react";
 
 import { DOCK_APPS } from "@/constants/apps";
@@ -10,6 +10,12 @@ import { useWindowStore } from "@/store/windowStore";
 
 const GAUSSIAN_SIGMA = 80;
 const MAX_SCALE_BOOST = 0.6;
+const DOCK_ICON_SRC: Record<string, string> = {
+  finder: "/images/finder.png",
+  safari: "/images/safari.png",
+  photos: "/images/photos.png",
+  contact: "/images/contact.png",
+};
 
 export function Dock() {
   const dockRef = useRef<HTMLDivElement | null>(null);
@@ -126,13 +132,11 @@ export function Dock() {
     <div className="pointer-events-none fixed inset-x-0 bottom-4 z-[9998] flex justify-center px-4">
       <div
         ref={dockRef}
-        className="glass pointer-events-auto dock-shadow flex items-end gap-2 rounded-2xl px-3 py-2"
-        style={{ boxShadow: "0 8px 32px rgba(0,0,0,0.4)" }}
+        className="pointer-events-auto flex items-end gap-2 rounded-[13px] border border-white/20 bg-[#151c53]/62 px-9 py-3 shadow-[0_18px_54px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.22)] backdrop-blur-2xl"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
         {apps.map((app) => {
-          const Icon = app.icon;
           const isOpen = windows[app.id]?.isOpen;
 
           return (
@@ -146,10 +150,17 @@ export function Dock() {
                 }}
                 type="button"
                 aria-label={`Open ${app.label}`}
-                className={`flex h-[52px] w-[52px] origin-bottom transform-gpu items-center justify-center rounded-xl bg-gradient-to-br ${app.gradient} shadow-[inset_0_1px_0_rgba(255,255,255,0.25),0_8px_24px_rgba(15,23,42,0.24)] transition-transform`}
+                className="flex h-[52px] w-[52px] origin-bottom transform-gpu items-center justify-center transition-transform"
                 onClick={() => handleAppClick(app.id)}
               >
-                <Icon className="h-7 w-7 text-white drop-shadow-[0_2px_5px_rgba(0,0,0,0.28)]" />
+                <Image
+                  src={DOCK_ICON_SRC[app.id]}
+                  alt=""
+                  width={58}
+                  height={58}
+                  className="h-[52px] w-[52px] object-contain drop-shadow-[0_8px_8px_rgba(0,0,0,0.24)]"
+                  draggable={false}
+                />
               </button>
               <span
                 className={`mt-2 h-1.5 w-1.5 rounded-full bg-white/90 transition-opacity ${
@@ -160,18 +171,44 @@ export function Dock() {
           );
         })}
 
-        <div className="mx-1 h-12 w-px self-center bg-white/20" />
+        <div className="group relative flex flex-col items-center">
+          <div className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 rounded-md bg-black/78 px-2 py-1 text-xs font-medium text-white opacity-0 shadow-lg transition duration-150 group-hover:-translate-y-1 group-hover:opacity-100">
+            Terminal
+          </div>
+          <button
+            type="button"
+            aria-label="Terminal"
+            className="flex h-[52px] w-[52px] items-center justify-center"
+          >
+            <Image
+              src="/images/terminal.png"
+              alt=""
+              width={58}
+              height={58}
+              className="h-[52px] w-[52px] object-contain drop-shadow-[0_8px_8px_rgba(0,0,0,0.24)]"
+              draggable={false}
+            />
+          </button>
+          <span className="mt-2 h-1.5 w-1.5 opacity-0" />
+        </div>
 
         <div className="group relative flex flex-col items-center">
-          <div className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 rounded-lg border border-white/10 bg-black/65 px-2 py-1 text-xs font-medium text-white opacity-0 shadow-lg transition duration-150 group-hover:-translate-y-1 group-hover:opacity-100">
+          <div className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 rounded-md bg-black/78 px-2 py-1 text-xs font-medium text-white opacity-0 shadow-lg transition duration-150 group-hover:-translate-y-1 group-hover:opacity-100">
             Trash
           </div>
           <button
             type="button"
             aria-label="Trash"
-            className="flex h-[52px] w-[52px] items-center justify-center rounded-xl bg-gradient-to-br from-slate-200/80 via-slate-100/70 to-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_8px_24px_rgba(15,23,42,0.2)]"
+            className="flex h-[52px] w-[52px] items-center justify-center"
           >
-            <Trash2 className="h-7 w-7 text-slate-700" />
+            <Image
+              src="/images/trash.png"
+              alt=""
+              width={58}
+              height={58}
+              className="h-[52px] w-[52px] object-contain drop-shadow-[0_8px_8px_rgba(0,0,0,0.24)]"
+              draggable={false}
+            />
           </button>
           <span className="mt-2 h-1.5 w-1.5 opacity-0" />
         </div>
