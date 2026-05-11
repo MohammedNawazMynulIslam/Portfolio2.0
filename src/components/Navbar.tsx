@@ -5,10 +5,17 @@ import { Check, CircleUserRound, Search, SlidersHorizontal, Wifi } from "lucide-
 import { useEffect, useRef, useState } from "react";
 
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
+import { useLocationStore } from "@/store/locationStore";
 import { useWindowStore } from "@/store/windowStore";
 
 const MENU_ITEMS = ["Projects", "Testimonials", "Contact", "Resume"] as const;
-const BRAND_NAME = "Mynul's Portfolio";
+const BRAND_NAME = "Mynul";
+export type ThemeMode = "light" | "dark";
+
+interface NavbarProps {
+  theme: ThemeMode;
+  onThemeChange: (theme: ThemeMode) => void;
+}
 
 function AppleLogo() {
   return (
@@ -35,13 +42,13 @@ function formatClock(date: Date) {
   return `${weekday} ${month} ${day}  ${time}`;
 }
 
-export function Navbar() {
+export function Navbar({ theme, onThemeChange }: NavbarProps) {
   const navbarRef = useRef<HTMLElement | null>(null);
-  const [showThemeMenu, setShowThemeMenu] = useState(true);
-  const activeWindowId = useWindowStore((state) => state.activeWindowId);
-  const activeWindowTitle = useWindowStore((state) =>
-    state.activeWindowId ? state.windows[state.activeWindowId].title : BRAND_NAME,
-  );
+  const themeMenuRef = useRef<HTMLDivElement | null>(null);
+  const themeButtonRef = useRef<HTMLButtonElement | null>(null);
+  const [showThemeMenu, setShowThemeMenu] = useState(false);
+  const openWindow = useWindowStore((state) => state.openWindow);
+  const setFinderPath = useLocationStore((state) => state.setPath);
   const [clock, setClock] = useState(() => formatClock(new Date()));
 
   useEffect(() => {
@@ -51,6 +58,31 @@ export function Navbar() {
 
     return () => window.clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    if (!showThemeMenu) {
+      return;
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+
+      if (
+        themeMenuRef.current?.contains(target) ||
+        themeButtonRef.current?.contains(target)
+      ) {
+        return;
+      }
+
+      setShowThemeMenu(false);
+    };
+
+    window.addEventListener("pointerdown", handlePointerDown);
+
+    return () => {
+      window.removeEventListener("pointerdown", handlePointerDown);
+    };
+  }, [showThemeMenu]);
 
   useIsomorphicLayoutEffect(() => {
     if (!navbarRef.current) {
@@ -73,6 +105,26 @@ export function Navbar() {
     return () => context.revert();
   }, []);
 
+  const handleMenuItemClick = (item: (typeof MENU_ITEMS)[number]) => {
+    if (item === "Projects") {
+      setFinderPath(["Home", "Projects"]);
+      openWindow("finder");
+      return;
+    }
+
+    if (item === "Testimonials") {
+      openWindow("photos");
+      return;
+    }
+
+    if (item === "Contact") {
+      openWindow("contact");
+      return;
+    }
+
+    openWindow("resume");
+  };
+
   return (
     <header
       ref={navbarRef}
@@ -88,13 +140,14 @@ export function Navbar() {
             <AppleLogo />
           </button>
           <span className="truncate text-[15px] font-bold text-black">
-            {activeWindowId ? activeWindowTitle : BRAND_NAME}
+            {BRAND_NAME}
           </span>
           <nav className="hidden items-center gap-6 text-[13px] font-semibold text-black md:flex">
             {MENU_ITEMS.map((item) => (
               <button
                 key={item}
                 type="button"
+                onClick={() => handleMenuItemClick(item)}
                 className="transition hover:text-black/60"
               >
                 {item}
@@ -114,8 +167,11 @@ export function Navbar() {
           </button>
           <CircleUserRound className="h-4 w-4 stroke-[2.4]" />
           <button
+            ref={themeButtonRef}
             type="button"
             aria-label="Theme menu"
+            aria-expanded={showThemeMenu}
+            aria-haspopup="menu"
             className="relative flex h-5 w-5 items-center justify-center rounded-md transition hover:bg-black/[0.08]"
             onClick={() => setShowThemeMenu((current) => !current)}
           >
@@ -127,19 +183,40 @@ export function Navbar() {
         </div>
 
         {showThemeMenu ? (
-          <div className="absolute right-[94px] top-[35px] w-[154px] overflow-hidden rounded-lg border border-black/10 bg-white/82 p-1 text-[13px] text-black shadow-[0_18px_42px_rgba(15,23,42,0.28)] backdrop-blur-2xl">
+          <div
+            ref={themeMenuRef}
+            role="menu"
+            className="absolute right-[94px] top-[35px] w-[154px] overflow-hidden rounded-lg border border-black/10 bg-white/82 p-1 text-[13px] text-black shadow-[0_18px_42px_rgba(15,23,42,0.28)] backdrop-blur-2xl"
+          >
             <button
               type="button"
-              className="flex w-full items-center rounded-md px-3 py-1.5 text-left hover:bg-black/5"
+              role="menuitemradio"
+              aria-checked={theme === "light"}
+              onClick={() => {
+                onThemeChange("light");
+                setShowThemeMenu(false);
+              }}
+              className={`flex w-full items-center justify-between rounded-md px-3 py-1.5 text-left ${
+                theme === "light" ? "bg-[#0a84ff] text-white" : "hover:bg-black/5"
+              }`}
             >
-              Light Mode
+              <span>Light Mode</span>
+              {theme === "light" ? <Check className="h-3.5 w-3.5" /> : null}
             </button>
             <button
               type="button"
-              className="flex w-full items-center justify-between rounded-md bg-[#0a84ff] px-3 py-1.5 text-left text-white"
+              role="menuitemradio"
+              aria-checked={theme === "dark"}
+              onClick={() => {
+                onThemeChange("dark");
+                setShowThemeMenu(false);
+              }}
+              className={`flex w-full items-center justify-between rounded-md px-3 py-1.5 text-left ${
+                theme === "dark" ? "bg-[#0a84ff] text-white" : "hover:bg-black/5"
+              }`}
             >
               <span>Dark Mode</span>
-              <Check className="h-3.5 w-3.5" />
+              {theme === "dark" ? <Check className="h-3.5 w-3.5" /> : null}
             </button>
           </div>
         ) : null}

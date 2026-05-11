@@ -15,9 +15,11 @@ import {
 
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useWindowStore } from "@/store/windowStore";
-import type { AppId, WindowSize } from "@/types";
+import type { AppId, WindowPosition, WindowSize } from "@/types";
 
 gsap.registerPlugin(Draggable);
+
+const DEFAULT_POSITION: WindowPosition = { x: 0, y: 0 };
 
 interface WindowFrameConfig {
   id: AppId;
@@ -44,7 +46,6 @@ function WindowFrame({
   const windowState = useWindowStore((state) => state.windows[id]);
   const closeWindow = useWindowStore((state) => state.closeWindow);
   const minimizeWindow = useWindowStore((state) => state.minimizeWindow);
-  const restoreWindow = useWindowStore((state) => state.restoreWindow);
   const focusWindow = useWindowStore((state) => state.focusWindow);
   const updatePosition = useWindowStore((state) => state.updatePosition);
   const updateSize = useWindowStore((state) => state.updateSize);
@@ -54,15 +55,33 @@ function WindowFrame({
   const resizeHandleRef = useRef<HTMLButtonElement | null>(null);
   const dragStartRef = useRef({ x: 0, y: 0 });
   const resizeStartRef = useRef(defaultSize);
+  const latestPositionRef = useRef({ x: 0, y: 0 });
+  const latestSizeRef = useRef(defaultSize);
+  const restoreFrameRef = useRef<{
+    position: WindowPosition;
+    size: WindowSize;
+  } | null>(null);
   const previousOpenRef = useRef(windowState?.isOpen ?? false);
   const previousMinimizedRef = useRef(windowState?.isMinimized ?? false);
   const [shouldRender, setShouldRender] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
 
-  const size = windowState?.size ?? defaultSize;
-  const position = windowState?.position ?? { x: 0, y: 0 };
+  const size = useMemo(() => windowState?.size ?? defaultSize, [defaultSize, windowState?.size]);
+  const position = useMemo(
+    () => windowState?.position ?? DEFAULT_POSITION,
+    [windowState?.position],
+  );
   const isVisible = Boolean(
     windowState && (shouldRender || (windowState.isOpen && !windowState.isMinimized)),
   );
+
+  useEffect(() => {
+    latestPositionRef.current = position;
+  }, [position]);
+
+  useEffect(() => {
+    latestSizeRef.current = size;
+  }, [size]);
 
   useEffect(() => {
     const element = windowRef.current;
@@ -148,13 +167,15 @@ function WindowFrame({
         type: "x,y",
         trigger: dragHandle,
         onPress() {
-          dragStartRef.current = { ...position };
+          dragStartRef.current = { ...latestPositionRef.current };
           focusWindow(id);
         },
         onDragEnd() {
           const nextX = dragStartRef.current.x + this.x;
           const nextY = dragStartRef.current.y + this.y;
           updatePosition(id, nextX, nextY);
+          setIsMaximized(false);
+          restoreFrameRef.current = null;
           gsap.set(element, { x: 0, y: 0 });
         },
       })[0];
@@ -162,18 +183,22 @@ function WindowFrame({
       const resizeInstance = Draggable.create(resizeHandle, {
         type: "x,y",
         onPress() {
-          resizeStartRef.current = size;
+          resizeStartRef.current = latestSizeRef.current;
           focusWindow(id);
         },
         onDrag() {
           const nextWidth = Math.max(defaultSize.w, resizeStartRef.current.w + this.x);
           const nextHeight = Math.max(defaultSize.h, resizeStartRef.current.h + this.y);
           updateSize(id, nextWidth, nextHeight);
+          setIsMaximized(false);
+          restoreFrameRef.current = null;
         },
         onDragEnd() {
           const nextWidth = Math.max(defaultSize.w, resizeStartRef.current.w + this.x);
           const nextHeight = Math.max(defaultSize.h, resizeStartRef.current.h + this.y);
           updateSize(id, nextWidth, nextHeight);
+          setIsMaximized(false);
+          restoreFrameRef.current = null;
           gsap.set(resizeHandle, { x: 0, y: 0 });
         },
       })[0];
@@ -191,13 +216,10 @@ function WindowFrame({
     focusWindow,
     id,
     isVisible,
-    position.x,
-    position.y,
-    size.h,
-    size.w,
     updatePosition,
     updateSize,
-    windowState,
+    windowState?.isOpen,
+    windowState?.isMinimized,
   ]);
 
   const handleFocus = () => {
@@ -220,7 +242,37 @@ function WindowFrame({
 
   const handleMaximize = (event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
-    restoreWindow(id);
+    focusWindow(id);
+
+    if (isMaximized && restoreFrameRef.current) {
+      updatePosition(
+        id,
+        restoreFrameRef.current.position.x,
+        restoreFrameRef.current.position.y,
+      );
+      updateSize(id, restoreFrameRef.current.size.w, restoreFrameRef.current.size.h);
+      restoreFrameRef.current = null;
+      setIsMaximized(false);
+      return;
+    }
+
+    restoreFrameRef.current = {
+      position: latestPositionRef.current,
+      size: latestSizeRef.current,
+    };
+
+    const margin = 30;
+    const topOffset = 44;
+    const bottomOffset = 112;
+    const nextWidth = Math.max(defaultSize.w, window.innerWidth - margin * 2);
+    const nextHeight = Math.max(
+      defaultSize.h,
+      window.innerHeight - topOffset - bottomOffset,
+    );
+
+    updatePosition(id, margin, topOffset);
+    updateSize(id, nextWidth, nextHeight);
+    setIsMaximized(true);
   };
 
   const frameStyle = useMemo(
@@ -264,7 +316,7 @@ function WindowFrame({
           />
           <button
             type="button"
-            aria-label={`Restore ${title}`}
+            aria-label={`${isMaximized ? "Restore" : "Maximize"} ${title}`}
             className="h-3 w-3 rounded-full bg-[#28C840]"
             onClick={handleMaximize}
           />

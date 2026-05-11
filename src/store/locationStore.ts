@@ -11,6 +11,7 @@ interface LocationStoreActions {
   navigate: (folder: string) => void;
   goBack: () => void;
   selectFile: (name: string) => void;
+  setPath: (path: string[]) => void;
   reset: () => void;
 }
 
@@ -35,5 +36,6 @@ export const useLocationStore = create<LocationStore>((set) => ({
       selectedFile: null,
     })),
   selectFile: (name) => set({ selectedFile: name }),
+  setPath: (path) => set({ currentPath: path, selectedFile: null }),
   reset: () => set({ currentPath: ROOT_PATH, selectedFile: null }),
 }));

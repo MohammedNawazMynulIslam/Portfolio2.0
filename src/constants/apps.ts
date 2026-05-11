@@ -34,9 +34,14 @@ const WINDOW_SIZES: Record<AppId, AppWindow["size"]> = {
   fileviewer: { w: 560, h: 480 },
 };
 
-const WINDOW_START_X = 120;
-const WINDOW_START_Y = 96;
-const WINDOW_OFFSET = 30;
+const WINDOW_POSITIONS: Record<AppId, AppWindow["position"]> = {
+  finder: { x: 84, y: 108 },
+  safari: { x: 210, y: 128 },
+  resume: { x: 170, y: 148 },
+  contact: { x: 250, y: 188 },
+  photos: { x: 300, y: 168 },
+  fileviewer: { x: 390, y: 198 },
+};
 
 export const INITIAL_WINDOWS: Record<AppId, AppWindow> = APP_IDS.reduce(
   (windows, id, index) => {
@@ -46,10 +51,7 @@ export const INITIAL_WINDOWS: Record<AppId, AppWindow> = APP_IDS.reduce(
       isOpen: false,
       isMinimized: false,
       zIndex: index + 1,
-      position: {
-        x: WINDOW_START_X + WINDOW_OFFSET * index,
-        y: WINDOW_START_Y + WINDOW_OFFSET * index,
-      },
+      position: WINDOW_POSITIONS[id],
       size: WINDOW_SIZES[id],
     };
 

@@ -15,6 +15,7 @@ import { Dock } from "@/components/Dock";
 import { Navbar } from "@/components/Navbar";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useWindowStore } from "@/store/windowStore";
+import type { ThemeMode } from "@/components/Navbar";
 
 gsap.registerPlugin(Draggable);
 
@@ -152,6 +153,15 @@ export function Desktop() {
   const [shortcuts, setShortcuts] = useState(INITIAL_SHORTCUTS);
   const [contextMenu, setContextMenu] = useState<{ x: number; y: number } | null>(null);
   const [showAboutModal, setShowAboutModal] = useState(false);
+  const [theme, setTheme] = useState<ThemeMode>(() => {
+    if (typeof window === "undefined") {
+      return "dark";
+    }
+
+    const savedTheme = window.localStorage.getItem("portfolio-theme");
+
+    return savedTheme === "light" || savedTheme === "dark" ? savedTheme : "dark";
+  });
 
   const windows = useWindowStore((state) => state.windows);
   const openWindow = useWindowStore((state) => state.openWindow);
@@ -258,6 +268,11 @@ export function Desktop() {
     openWindow(appId);
   };
 
+  const handleThemeChange = (nextTheme: ThemeMode) => {
+    setTheme(nextTheme);
+    window.localStorage.setItem("portfolio-theme", nextTheme);
+  };
+
   const menuItems = [
     {
       label: "New Folder",
@@ -285,8 +300,8 @@ export function Desktop() {
         <MobileLanding />
       </div>
 
-      <div className="hidden md:block">
-        <Navbar />
+      <div className="hidden md:block" data-theme={theme}>
+        <Navbar theme={theme} onThemeChange={handleThemeChange} />
 
         <div
           ref={surfaceRef}
@@ -301,11 +316,19 @@ export function Desktop() {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-black/[0.03]" />
+          <div
+            className={`absolute inset-0 transition-colors duration-300 ${
+              theme === "dark" ? "bg-black/[0.03]" : "bg-white/[0.28]"
+            }`}
+          />
 
           <section
             aria-label="Portfolio welcome"
-            className="pointer-events-none absolute left-1/2 top-[41%] z-10 w-[min(720px,62vw)] -translate-x-1/2 -translate-y-1/2 text-center text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)]"
+            className={`pointer-events-none absolute left-1/2 top-[41%] z-10 w-[min(720px,62vw)] -translate-x-1/2 -translate-y-1/2 text-center transition-colors duration-300 ${
+              theme === "dark"
+                ? "text-white drop-shadow-[0_4px_18px_rgba(0,0,0,0.35)]"
+                : "text-slate-950 drop-shadow-[0_4px_18px_rgba(255,255,255,0.55)]"
+            }`}
           >
             <p className="text-[clamp(24px,2.4vw,36px)] font-normal leading-none">
               Hey, welcome to my
@@ -325,7 +348,11 @@ export function Desktop() {
                   }}
                   type="button"
                   onDoubleClick={() => openAppFromShortcut(shortcut.appId)}
-                  className="absolute z-20 flex w-[150px] cursor-default flex-col items-center text-center text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.52)]"
+                  className={`absolute z-20 flex w-[150px] cursor-default flex-col items-center text-center transition-colors duration-300 ${
+                    theme === "dark"
+                      ? "text-white drop-shadow-[0_3px_8px_rgba(0,0,0,0.52)]"
+                      : "text-slate-950 drop-shadow-[0_2px_5px_rgba(255,255,255,0.74)]"
+                  }`}
                 >
                   <span className="flex h-[72px] w-[86px] items-end justify-center">
                     <Image
@@ -379,7 +406,7 @@ export function Desktop() {
           ) : null}
         </div>
 
-        <Dock />
+        <Dock theme={theme} />
 
         {showAboutModal ? (
           <div className="absolute inset-0 z-[10001] flex items-center justify-center bg-slate-950/45 backdrop-blur-sm">

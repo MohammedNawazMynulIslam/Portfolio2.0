@@ -7,6 +7,7 @@ import { useMemo, useRef } from "react";
 import { DOCK_APPS } from "@/constants/apps";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useWindowStore } from "@/store/windowStore";
+import type { ThemeMode } from "@/components/Navbar";
 
 const GAUSSIAN_SIGMA = 80;
 const MAX_SCALE_BOOST = 0.6;
@@ -17,7 +18,11 @@ const DOCK_ICON_SRC: Record<string, string> = {
   contact: "/images/contact.png",
 };
 
-export function Dock() {
+interface DockProps {
+  theme: ThemeMode;
+}
+
+export function Dock({ theme }: DockProps) {
   const dockRef = useRef<HTMLDivElement | null>(null);
   const iconRefs = useRef<Record<string, HTMLButtonElement | null>>({});
   const frameRef = useRef<number | null>(null);
@@ -132,7 +137,11 @@ export function Dock() {
     <div className="pointer-events-none fixed inset-x-0 bottom-4 z-[9998] flex justify-center px-4">
       <div
         ref={dockRef}
-        className="pointer-events-auto flex items-end gap-2 rounded-[13px] border border-white/20 bg-[#151c53]/62 px-9 py-3 shadow-[0_18px_54px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.22)] backdrop-blur-2xl"
+        className={`pointer-events-auto flex items-end gap-2 rounded-[13px] border px-9 py-3 backdrop-blur-2xl ${
+          theme === "dark"
+            ? "border-white/20 bg-[#151c53]/62 shadow-[0_18px_54px_rgba(0,0,0,0.34),inset_0_1px_0_rgba(255,255,255,0.22)]"
+            : "border-white/55 bg-white/42 shadow-[0_18px_54px_rgba(30,64,175,0.22),inset_0_1px_0_rgba(255,255,255,0.72)]"
+        }`}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
       >
