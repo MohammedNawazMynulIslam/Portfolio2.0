@@ -3,18 +3,18 @@
 import gsap from "gsap";
 import {
   ChevronLeft,
+  ChevronRight,
   Download,
   FileCode2,
   FileText,
   FolderOpen,
-  Grid2X2,
   HardDrive,
   Home,
-  LayoutList,
   Link2,
   Monitor,
   Search,
 } from "lucide-react";
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
 import {
@@ -46,6 +46,33 @@ const LOCATIONS: SidebarItem[] = [
   { label: "Portfolio Drive", icon: HardDrive, path: ["Home"] },
 ];
 
+const WORK_ITEMS: FinderItem[] = [
+  {
+    name: "Project 1 (SnapCast)",
+    kind: "folder",
+    dateModified: "May 1, 2026",
+    size: "--",
+  },
+  {
+    name: "Project 2 (Converso)",
+    kind: "folder",
+    dateModified: "May 2, 2026",
+    size: "--",
+  },
+  {
+    name: "Project 3 (PrepWise)",
+    kind: "folder",
+    dateModified: "May 3, 2026",
+    size: "--",
+  },
+  {
+    name: "Project 4 (Bookwise)",
+    kind: "folder",
+    dateModified: "May 4, 2026",
+    size: "--",
+  },
+];
+
 const KIND_LABELS: Record<FinderItemKind, string> = {
   folder: "Folder",
   tsx: "TypeScript React Document",
@@ -68,6 +95,11 @@ function getPathKey(path: string[]) {
 
 function getFinderItems(path: string[]) {
   const key = getPathKey(path);
+
+  if (key === "Home/Projects") {
+    return WORK_ITEMS;
+  }
+
   const directMatch = FINDER_DATA[key];
 
   if (directMatch) {
@@ -108,7 +140,7 @@ function FinderWindow() {
   const items = useMemo(() => getFinderItems(currentPath), [currentPath]);
   const selectedItem =
     items.find((item) => item.name === selectedFile && item.kind !== "folder") ?? null;
-  const breadcrumb = currentPath.join(" > ");
+  const windowTitle = getPathKey(currentPath) === "Home/Projects" ? "Work" : currentPath.at(-1) ?? "Work";
 
   const jumpToPath = (targetPath: string[]) => {
     reset();
@@ -145,8 +177,8 @@ function FinderWindow() {
   };
 
   return (
-    <div className="flex h-full bg-slate-950/20 text-white">
-      <aside className="glass-dark flex w-[200px] shrink-0 flex-col border-r border-white/10 px-3 py-4">
+    <div className="finder-surface flex h-full overflow-hidden text-white">
+      <aside className="finder-sidebar flex w-[220px] shrink-0 flex-col border-r px-3 py-4">
         <SidebarSection
           title="Favorites"
           items={FAVORITES}
@@ -163,61 +195,41 @@ function FinderWindow() {
 
       <div className="flex min-w-0 flex-1">
         <section className="flex min-w-0 flex-1 flex-col">
-          <header className="glass-dark flex flex-wrap items-center gap-3 border-b border-white/10 px-4 py-3">
+          <header className="finder-toolbar flex h-[70px] items-center gap-5 border-b px-6">
             <button
               type="button"
               onClick={goBack}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white/90 transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-40"
+              className="finder-nav-button flex h-9 w-9 items-center justify-center transition disabled:cursor-not-allowed disabled:opacity-35"
               disabled={currentPath.length <= 1}
               aria-label="Go back"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-8 w-8" />
             </button>
-
-            <div className="min-w-0 flex-1 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-sm text-white/80">
-              <span className="truncate">{breadcrumb}</span>
-            </div>
-
-            <div className="flex items-center rounded-full border border-white/10 bg-white/10 p-1">
-              <button
-                type="button"
-                onClick={() => setViewMode("grid")}
-                className={`rounded-full px-3 py-1.5 text-sm transition ${
-                  viewMode === "grid" ? "bg-white/20 text-white" : "text-white/70"
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <Grid2X2 className="h-4 w-4" />
-                  Grid
-                </span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setViewMode("list")}
-                className={`rounded-full px-3 py-1.5 text-sm transition ${
-                  viewMode === "list" ? "bg-white/20 text-white" : "text-white/70"
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <LayoutList className="h-4 w-4" />
-                  List
-                </span>
-              </button>
-            </div>
-
-            <div className="flex min-w-[170px] items-center gap-2 rounded-full border border-white/10 bg-white/10 px-3 py-2 text-sm text-white/50">
-              <Search className="h-4 w-4" />
-              <span>Search</span>
-            </div>
+            <button
+              type="button"
+              className="finder-nav-button flex h-9 w-9 items-center justify-center opacity-40"
+              aria-label="Go forward"
+            >
+              <ChevronRight className="h-8 w-8" />
+            </button>
+            <h2 className="finder-title min-w-0 flex-1 truncate text-[24px] font-bold">
+              {windowTitle}
+            </h2>
+            <button
+              type="button"
+              onClick={() => setViewMode((mode) => (mode === "grid" ? "list" : "grid"))}
+              className="finder-search-button flex h-10 w-10 items-center justify-center transition"
+              aria-label="Search"
+            >
+              <Search className="h-7 w-7" />
+            </button>
           </header>
 
           <div className="flex min-h-0 flex-1">
-            <div className="min-w-0 flex-1 overflow-y-auto px-4 py-4">
+            <div className="finder-content min-w-0 flex-1 overflow-y-auto px-10 py-14">
               {viewMode === "grid" ? (
-                <div className="grid grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-4">
+                <div className="grid grid-cols-2 gap-x-24 gap-y-24 2xl:gap-x-32">
                   {items.map((item) => {
-                    const isSelected = selectedItem?.name === item.name;
-
                     return (
                       <button
                         key={item.name}
@@ -225,7 +237,7 @@ function FinderWindow() {
                         onClick={() => handleItemClick(item)}
                         onMouseEnter={(event) =>
                           gsap.to(event.currentTarget, {
-                            scale: 1.05,
+                            scale: 1.04,
                             duration: 0.15,
                             ease: "power2.out",
                           })
@@ -237,14 +249,21 @@ function FinderWindow() {
                             ease: "power2.out",
                           })
                         }
-                        className={`flex h-[90px] flex-col items-center justify-center rounded-2xl border px-2 text-center transition ${
-                          isSelected
-                            ? "border-sky-300/50 bg-sky-400/15"
-                            : "border-white/8 bg-white/5 hover:bg-white/10"
-                        }`}
+                        className="finder-grid-item flex min-h-[130px] flex-col items-center justify-start text-center transition"
                       >
-                        {renderItemIcon(item.kind, "h-9 w-9")}
-                        <span className="mt-2 line-clamp-2 text-xs text-white/90">
+                        {item.kind === "folder" ? (
+                          <Image
+                            src="/images/folder.png"
+                            alt=""
+                            width={92}
+                            height={86}
+                            className="h-[74px] w-[92px] object-contain"
+                            draggable={false}
+                          />
+                        ) : (
+                          renderItemIcon(item.kind, "h-[74px] w-[74px]")
+                        )}
+                        <span className="finder-item-label mt-4 line-clamp-2 max-w-[230px] text-[21px] font-semibold leading-tight">
                           {item.name}
                         </span>
                       </button>
@@ -252,8 +271,8 @@ function FinderWindow() {
                   })}
                 </div>
               ) : (
-                <div className="overflow-hidden rounded-2xl border border-white/10 bg-black/10">
-                  <div className="grid grid-cols-[minmax(0,1.5fr)_140px_100px_180px] gap-3 border-b border-white/10 px-4 py-3 text-xs uppercase tracking-[0.16em] text-white/45">
+                <div className="finder-list overflow-hidden rounded-2xl border">
+                  <div className="finder-list-header grid grid-cols-[minmax(0,1.5fr)_140px_100px_180px] gap-3 border-b px-4 py-3 text-xs uppercase tracking-[0.16em]">
                     <span>Name</span>
                     <span>Date Modified</span>
                     <span>Size</span>
@@ -267,17 +286,17 @@ function FinderWindow() {
                         key={item.name}
                         type="button"
                         onClick={() => handleItemClick(item)}
-                        className={`grid w-full grid-cols-[minmax(0,1.5fr)_140px_100px_180px] gap-3 border-b border-white/5 px-4 py-3 text-left text-sm transition last:border-b-0 ${
-                          isSelected ? "bg-sky-400/15" : "hover:bg-white/6"
+                        className={`finder-list-row grid w-full grid-cols-[minmax(0,1.5fr)_140px_100px_180px] gap-3 border-b px-4 py-3 text-left text-sm transition last:border-b-0 ${
+                          isSelected ? "is-selected" : ""
                         }`}
                       >
                         <span className="flex min-w-0 items-center gap-3">
                           {renderItemIcon(item.kind, "h-5 w-5 shrink-0")}
                           <span className="truncate">{item.name}</span>
                         </span>
-                        <span className="truncate text-white/65">{item.dateModified}</span>
-                        <span className="text-white/65">{item.size}</span>
-                        <span className="truncate text-white/65">{KIND_LABELS[item.kind]}</span>
+                        <span className="truncate opacity-70">{item.dateModified}</span>
+                        <span className="opacity-70">{item.size}</span>
+                        <span className="truncate opacity-70">{KIND_LABELS[item.kind]}</span>
                       </button>
                     );
                   })}
@@ -285,35 +304,35 @@ function FinderWindow() {
               )}
             </div>
 
-            <aside className="glass-dark hidden w-[280px] shrink-0 border-l border-white/10 p-4 lg:flex lg:flex-col">
+            <aside className="finder-preview hidden w-[280px] shrink-0 border-l p-4 lg:flex lg:flex-col">
               {selectedItem ? (
                 <>
-                  <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <div className="finder-preview-card rounded-2xl border p-4">
                     {renderItemIcon(selectedItem.kind, "h-10 w-10")}
-                    <h3 className="mt-4 text-xl font-semibold text-white">
+                    <h3 className="finder-preview-title mt-4 text-xl font-semibold">
                       {selectedItem.name}
                     </h3>
-                    <p className="mt-2 text-sm leading-6 text-white/70">
+                    <p className="mt-2 text-sm leading-6 opacity-70">
                       {selectedItem.description}
                     </p>
                   </div>
-                  <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-xs uppercase tracking-[0.18em] text-white/45">
+                  <div className="finder-preview-card mt-4 rounded-2xl border p-4">
+                    <p className="text-xs uppercase tracking-[0.18em] opacity-50">
                       Tech Stack
                     </p>
                     <div className="mt-3 flex flex-wrap gap-2">
                       {selectedItem.techStack?.map((tech) => (
                         <span
                           key={tech}
-                          className="rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs text-white/80"
+                          className="finder-chip rounded-full border px-3 py-1 text-xs"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
                   </div>
-                  <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-4">
-                    <p className="text-xs uppercase tracking-[0.18em] text-white/45">
+                  <div className="finder-preview-card mt-4 rounded-2xl border p-4">
+                    <p className="text-xs uppercase tracking-[0.18em] opacity-50">
                       Links
                     </p>
                     <div className="mt-3 flex flex-col gap-2">
@@ -343,10 +362,10 @@ function FinderWindow() {
                   </div>
                 </>
               ) : (
-                <div className="flex h-full flex-col items-center justify-center rounded-2xl border border-dashed border-white/12 bg-white/5 px-6 text-center">
-                  <FolderOpen className="h-10 w-10 text-white/35" />
-                  <p className="mt-4 text-lg font-medium text-white/85">Quick Look</p>
-                  <p className="mt-2 text-sm leading-6 text-white/55">
+                <div className="finder-preview-empty flex h-full flex-col items-center justify-center rounded-2xl border border-dashed px-6 text-center">
+                  <FolderOpen className="h-10 w-10 opacity-40" />
+                  <p className="mt-4 text-lg font-medium">Quick Look</p>
+                  <p className="mt-2 text-sm leading-6 opacity-60">
                     Select a project file to preview its description, stack, and links.
                   </p>
                 </div>
@@ -372,7 +391,7 @@ function SidebarSection({
 }) {
   return (
     <div className="mb-6">
-      <p className="px-2 text-xs uppercase tracking-[0.18em] text-white/35">{title}</p>
+      <p className="finder-sidebar-title px-2 text-sm font-semibold">{title}</p>
       <div className="mt-2 space-y-1">
         {items.map((item) => {
           const Icon = item.icon;
@@ -383,14 +402,14 @@ function SidebarSection({
               key={item.label}
               type="button"
               onClick={() => onSelect(item.path)}
-              className={`flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm transition ${
+              className={`finder-sidebar-item flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-[18px] transition ${
                 isActive
-                  ? "bg-sky-400/18 text-white"
-                  : "text-white/70 hover:bg-white/8 hover:text-white"
+                  ? "is-active"
+                  : ""
               }`}
             >
-              <Icon className="h-4 w-4" />
-              <span>{item.label}</span>
+              <Icon className="h-4 w-4 shrink-0" />
+              <span className="truncate">{item.label}</span>
             </button>
           );
         })}
@@ -403,5 +422,5 @@ export default withWindow(FinderWindow, {
   id: "finder",
   title: "Finder",
   icon: FolderOpen,
-  defaultSize: { w: 760, h: 500 },
+  defaultSize: { w: 1170, h: 700 },
 });

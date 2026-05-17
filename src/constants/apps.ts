@@ -26,7 +26,7 @@ const WINDOW_TITLES: Record<AppId, string> = {
 };
 
 const WINDOW_SIZES: Record<AppId, AppWindow["size"]> = {
-  finder: { w: 860, h: 580 },
+  finder: { w: 1170, h: 700 },
   safari: { w: 960, h: 640 },
   resume: { w: 820, h: 560 },
   contact: { w: 720, h: 520 },
@@ -35,7 +35,7 @@ const WINDOW_SIZES: Record<AppId, AppWindow["size"]> = {
 };
 
 const WINDOW_POSITIONS: Record<AppId, AppWindow["position"]> = {
-  finder: { x: 84, y: 108 },
+  finder: { x: 16, y: 44 },
   safari: { x: 210, y: 128 },
   resume: { x: 170, y: 148 },
   contact: { x: 250, y: 188 },

@@ -151,3 +151,173 @@ a {
   background: currentColor;
   vertical-align: -0.08em;
 }
+
+[data-theme="dark"] .finder-surface {
+  background: #1b1b1c;
+  color: #f4f4f5;
+}
+
+[data-theme="dark"] .finder-sidebar {
+  background: #303136;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .finder-toolbar {
+  background: #1b1b1c;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .finder-title,
+[data-theme="dark"] .finder-item-label,
+[data-theme="dark"] .finder-preview-title {
+  color: #f5f5f5;
+}
+
+[data-theme="dark"] .finder-sidebar-title {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+[data-theme="dark"] .finder-sidebar-item {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+[data-theme="dark"] .finder-sidebar-item svg {
+  color: #0a84ff;
+}
+
+[data-theme="dark"] .finder-sidebar-item:hover,
+[data-theme="dark"] .finder-sidebar-item.is-active {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .finder-nav-button,
+[data-theme="dark"] .finder-search-button {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+[data-theme="dark"] .finder-nav-button:hover,
+[data-theme="dark"] .finder-search-button:hover {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+[data-theme="dark"] .finder-content {
+  background: #1b1b1c;
+}
+
+[data-theme="dark"] .finder-list,
+[data-theme="dark"] .finder-preview-card,
+[data-theme="dark"] .finder-preview-empty {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .finder-list-header,
+[data-theme="dark"] .finder-list-row,
+[data-theme="dark"] .finder-preview {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .finder-list-header {
+  color: rgba(255, 255, 255, 0.42);
+}
+
+[data-theme="dark"] .finder-list-row {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+[data-theme="dark"] .finder-list-row:hover,
+[data-theme="dark"] .finder-list-row.is-selected {
+  background: rgba(10, 132, 255, 0.18);
+}
+
+[data-theme="dark"] .finder-chip {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.82);
+}
+
+[data-theme="light"] .finder-surface {
+  background: #ffffff;
+  color: #101827;
+}
+
+[data-theme="light"] .finder-sidebar {
+  background: rgba(248, 250, 252, 0.92);
+  border-color: #e5e7eb;
+}
+
+[data-theme="light"] .finder-toolbar {
+  background: #ffffff;
+  border-color: #dfe3eb;
+}
+
+[data-theme="light"] .finder-title,
+[data-theme="light"] .finder-item-label,
+[data-theme="light"] .finder-preview-title {
+  color: #05070c;
+}
+
+[data-theme="light"] .finder-sidebar-title {
+  color: #8a94a6;
+}
+
+[data-theme="light"] .finder-sidebar-item {
+  color: #263447;
+}
+
+[data-theme="light"] .finder-sidebar-item svg {
+  color: #0a84ff;
+}
+
+[data-theme="light"] .finder-sidebar-item:hover,
+[data-theme="light"] .finder-sidebar-item.is-active {
+  background: #d9e9ff;
+  color: #0559d9;
+}
+
+[data-theme="light"] .finder-nav-button,
+[data-theme="light"] .finder-search-button {
+  color: #8591a3;
+}
+
+[data-theme="light"] .finder-nav-button:hover,
+[data-theme="light"] .finder-search-button:hover {
+  color: #475569;
+}
+
+[data-theme="light"] .finder-content {
+  background: #ffffff;
+}
+
+[data-theme="light"] .finder-list,
+[data-theme="light"] .finder-preview-card,
+[data-theme="light"] .finder-preview-empty {
+  background: #ffffff;
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .finder-list-header,
+[data-theme="light"] .finder-list-row,
+[data-theme="light"] .finder-preview {
+  border-color: #e2e8f0;
+}
+
+[data-theme="light"] .finder-list-header {
+  color: #94a3b8;
+}
+
+[data-theme="light"] .finder-list-row {
+  color: #1e293b;
+}
+
+[data-theme="light"] .finder-list-row:hover,
+[data-theme="light"] .finder-list-row.is-selected {
+  background: #eff6ff;
+}
+
+[data-theme="light"] .finder-chip {
+  border-color: #dbe4f0;
+  background: #f8fafc;
+  color: #334155;
+}
