@@ -37,15 +37,6 @@ type DesktopShortcut = {
 
 const INITIAL_SHORTCUTS: DesktopShortcut[] = [
   {
-    id: "resume-shortcut",
-    label: "Resume.pdf",
-    appId: "resume",
-    iconSrc: "/images/pdf.png",
-    iconAlt: "PDF document",
-    position: { x: 118, y: 132 },
-    size: { w: 58, h: 58 },
-  },
-  {
     id: "project-1-shortcut",
     label: "Project 1 (SnapCast)",
     appId: "finder",
@@ -360,7 +351,7 @@ export function Desktop() {
                       alt={shortcut.iconAlt}
                       width={shortcut.size?.w ?? 64}
                       height={shortcut.size?.h ?? 60}
-                      className="object-contain"
+                      className="object-contain w-auto h-auto"
                       draggable={false}
                     />
                   </span>

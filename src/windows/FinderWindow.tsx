@@ -257,7 +257,7 @@ function FinderWindow() {
                             alt=""
                             width={92}
                             height={86}
-                            className="h-[74px] w-[92px] object-contain"
+                            className="h-[74px] w-[92px] object-contain w-auto h-auto"
                             draggable={false}
                           />
                         ) : (

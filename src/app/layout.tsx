@@ -43,7 +43,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full scroll-smooth">
-      <body className="min-h-full bg-background font-georama text-foreground antialiased">
+      <body
+        className="min-h-full bg-background font-georama text-foreground antialiased"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>
