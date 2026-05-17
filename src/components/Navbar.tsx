@@ -8,7 +8,7 @@ import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useLocationStore } from "@/store/locationStore";
 import { useWindowStore } from "@/store/windowStore";
 
-const MENU_ITEMS = ["Projects", "Testimonials", "Contact", "Resume"] as const;
+const MENU_ITEMS = ["Projects", "Contact", "Resume"] as const;
 const BRAND_NAME = "Mynul";
 export type ThemeMode = "light" | "dark";
 
@@ -111,12 +111,6 @@ export function Navbar({ theme, onThemeChange }: NavbarProps) {
       openWindow("finder");
       return;
     }
-
-    if (item === "Testimonials") {
-      openWindow("photos");
-      return;
-    }
-
     if (item === "Contact") {
       openWindow("contact");
       return;

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useMemo, useRef } from "react";
 
 import { DOCK_APPS } from "@/constants/apps";
+import { useLocationStore } from "@/store/locationStore";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { useWindowStore } from "@/store/windowStore";
 import type { ThemeMode } from "@/components/Navbar";
@@ -31,6 +32,7 @@ export function Dock({ theme }: DockProps) {
   const openWindow = useWindowStore((state) => state.openWindow);
   const restoreWindow = useWindowStore((state) => state.restoreWindow);
   const minimizeWindow = useWindowStore((state) => state.minimizeWindow);
+  const setFinderPath = useLocationStore((state) => state.setPath);
 
   const apps = useMemo(() => DOCK_APPS, []);
 
@@ -188,6 +190,10 @@ export function Dock({ theme }: DockProps) {
             type="button"
             aria-label="Terminal"
             className="flex h-[52px] w-[52px] items-center justify-center"
+            onClick={() => {
+              setFinderPath(["Home", "Skills"]);
+              openWindow("finder");
+            }}
           >
             <Image
               src="/images/terminal.png"

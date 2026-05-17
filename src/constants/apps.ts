@@ -68,12 +68,6 @@ export const DOCK_APPS: DockApp[] = [
     gradient: "from-sky-400 via-blue-500 to-indigo-600",
   },
   {
-    id: "safari",
-    label: "Safari",
-    icon: Globe,
-    gradient: "from-teal-300 via-cyan-400 to-blue-500",
-  },
-  {
     id: "photos",
     label: "Photos",
     icon: Image,
