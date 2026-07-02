@@ -4,35 +4,35 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio.mynul.dev"),
   title: {
-    default: "Mynul Islam | Portfolio OS",
-    template: "%s | Mynul Islam",
+    default: "Mynul Islam — Full Stack Developer",
+    template: "%s — Mynul Islam",
   },
   description:
-    "A macOS-inspired interactive portfolio built with Next.js, GSAP, and polished desktop-style UI.",
+    "Mynul Islam is a full stack developer crafting fast, expressive web products. Selected work, experience, and experiments.",
   openGraph: {
-    title: "Mynul Islam | Portfolio OS",
+    title: "Mynul Islam — Full Stack Developer",
     description:
-      "Explore a desktop-inspired interactive portfolio with animated windows, a dock, and polished product details.",
+      "Full stack developer crafting fast, expressive web products. Selected work, experience, and experiments.",
     type: "website",
     url: "https://portfolio.mynul.dev",
     images: [
       {
-        url: "https://picsum.photos/seed/portfolio-os-cover/1200/630",
+        url: "https://picsum.photos/seed/mynul-og/1200/630",
         width: 1200,
         height: 630,
-        alt: "Portfolio OS preview",
+        alt: "Mynul Islam — portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mynul Islam | Portfolio OS",
+    title: "Mynul Islam — Full Stack Developer",
     description:
-      "A macOS-inspired interactive portfolio built with Next.js, GSAP, and polished desktop-style UI.",
-    images: ["https://picsum.photos/seed/portfolio-os-cover/1200/630"],
+      "Full stack developer crafting fast, expressive web products.",
+    images: ["https://picsum.photos/seed/mynul-og/1200/630"],
   },
   icons: {
-    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="50" font-size="48">🖥️</text></svg>',
+    icon: 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="52" font-size="56" font-family="serif">M</text></svg>',
   },
 };
 
@@ -42,11 +42,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full scroll-smooth">
-      <body
-        className="min-h-full bg-background font-georama text-foreground antialiased"
-        suppressHydrationWarning
-      >
+    <html lang="en" className="h-full" data-scroll-behavior="smooth">
+      <body className="min-h-full bg-background font-sans text-foreground antialiased">
+        <div className="grain" aria-hidden="true" />
+        <noscript>
+          <style>{`[data-preloader]{display:none !important}`}</style>
+        </noscript>
         {children}
       </body>
     </html>
