@@ -86,14 +86,14 @@ export function Preloader({ name, role }: PreloaderProps) {
       </div>
 
       <div className="flex items-end justify-between gap-6">
-        <div ref={nameRef} className="overflow-hidden">
-          <p className="serif text-[15vw] leading-[0.85] tracking-tight sm:text-[12vw]">
+        <div ref={nameRef} className="min-w-0 flex-1 overflow-hidden">
+          <p className="serif text-[11vw] leading-[0.9] tracking-tight sm:text-[8.5vw]">
             {name}
           </p>
         </div>
         <span
           ref={countRef}
-          className="serif text-[15vw] leading-[0.85] tracking-tight text-accent sm:text-[12vw]"
+          className="serif shrink-0 text-[11vw] leading-[0.9] tracking-tight text-accent sm:text-[8.5vw]"
         >
           000
         </span>

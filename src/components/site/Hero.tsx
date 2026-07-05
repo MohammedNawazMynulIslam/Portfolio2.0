@@ -66,7 +66,7 @@ export function Hero({ profile }: HeroProps) {
           </span>
           <span className="label text-muted">{profile.availability}</span>
         </span>
-        <span className="label text-muted">© 2026</span>
+        {/* <span className="label text-muted">© 2026</span> */}
       </div>
 
       <div className="container-px grid items-center gap-8 lg:grid-cols-12">

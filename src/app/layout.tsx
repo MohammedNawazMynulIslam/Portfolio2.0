@@ -4,15 +4,15 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio.mynul.dev"),
   title: {
-    default: "Mynul Islam — Full Stack Developer",
+    default: "Mynul Islam — Software Engineer",
     template: "%s — Mynul Islam",
   },
   description:
-    "Mynul Islam is a full stack developer crafting fast, expressive web products. Selected work, experience, and experiments.",
+    "Mynul Islam is a software engineer building fast, scalable web apps with React, Next.js & TypeScript — across enterprise and government platforms.",
   openGraph: {
-    title: "Mynul Islam — Full Stack Developer",
+    title: "Mynul Islam — Software Engineer",
     description:
-      "Full stack developer crafting fast, expressive web products. Selected work, experience, and experiments.",
+      "Software engineer building fast, scalable web apps with React, Next.js & TypeScript across enterprise and government platforms.",
     type: "website",
     url: "https://portfolio.mynul.dev",
     images: [
@@ -26,9 +26,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mynul Islam — Full Stack Developer",
+    title: "Mynul Islam — Software Engineer",
     description:
-      "Full stack developer crafting fast, expressive web products.",
+      "Software engineer building fast, scalable web apps with React, Next.js & TypeScript.",
     images: ["https://picsum.photos/seed/mynul-og/1200/630"],
   },
   icons: {

@@ -1,112 +1,108 @@
 {
   "profile": {
-    "name": "Mynul Islam",
+    "name": "Mohammed Nawaz Mynul Islam",
     "role": "Full Stack Developer",
-    "tagline": "I build fast, polished web products end to end \u2014 from pixel-perfect interfaces to resilient backends.",
-    "heroImage": "https://picsum.photos/seed/mynul-hero-portrait/900/1100",
+    "tagline": "Full Stack Developer building fast, scalable web apps with React, Next.js & TypeScript \u2014 from enterprise dashboards to government platforms handling millions of records.",
+    "heroImage": "/images/mynul-portrait.jpg",
     "resumeUrl": "/files/resume.pdf",
     "location": "Dhaka, Bangladesh",
-    "availability": "Open to full-time roles & freelance projects",
+    "availability": "Open to new opportunities",
     "social": {
-      "email": "mynul.dev@example.com",
-      "github": "https://github.com/mynul",
-      "linkedin": "https://linkedin.com/in/mynul-islam",
-      "twitter": "https://x.com/mynul"
+      "email": "mynulislam183@gmail.com",
+      "github": "https://github.com/MohammedNawazMynulIslam",
+      "linkedin": "https://www.linkedin.com/in/mohammednawazmynulislam/",
+      "twitter": ""
     }
   },
   "about": {
-    "currentStatus": "Currently a Full Stack Developer shipping production features on a Next.js marketing + dashboard platform, and contributing to the design system that powers it.",
-    "bio": "I'm a full stack developer focused on building delightful, performant web applications. I care about clean architecture, accessible interfaces, and motion that feels intentional. Over the last few years I've worked across commerce, SaaS dashboards, and creative tooling \u2014 owning features from concept through launch.",
-    "futureGoal": "Grow into a staff-level engineer leading platform and developer-experience work, and ship an open-source product used by thousands of developers.",
+    "currentStatus": "Full Stack Developer at Nano Information Technology, building and maintaining frontend + backend for enterprise and government digital platforms \u2014 including the PKSF microservice ecosystem (CMS, LMS, Accounting) and large-scale survey management systems.",
+    "bio": "Full Stack Developer with 2+ years of experience building fast, scalable, and responsive web applications using React.js, Next.js, and TypeScript. Skilled in frontend and backend architecture, REST API integration, SSR/SSG, performance optimization, and responsive UI development. Experienced on enterprise and government digital platforms \u2014 improving performance, handling large datasets, and collaborating in Agile/Scrum teams to deliver maintainable, user-focused solutions.",
+    "futureGoal": "Step into a senior full-stack role leading architecture and performance work, and ship open-source tooling used by other developers.",
     "stats": [
-      { "id": "stat-years", "label": "Years Experience", "value": "5+" },
-      { "id": "stat-projects", "label": "Projects Shipped", "value": "30+" },
+      { "id": "stat-years", "label": "Years Experience", "value": "2+" },
+      { "id": "stat-projects", "label": "Enterprise Projects", "value": "3+" },
       { "id": "stat-stack", "label": "Technologies", "value": "20+" }
     ]
   },
   "skills": [
-    { "id": "skill-languages", "category": "Languages", "items": ["TypeScript", "JavaScript", "Python", "SQL"] },
-    { "id": "skill-frontend", "category": "Frontend", "items": ["React", "Next.js", "Tailwind CSS", "GSAP", "Zustand"] },
-    { "id": "skill-backend", "category": "Backend", "items": ["Node.js", "Express", "PostgreSQL", "Prisma", "REST APIs"] },
-    { "id": "skill-tools", "category": "Tools & Practices", "items": ["Git", "Docker", "Figma", "CI/CD", "Testing"] }
+    {
+      "id": "skill-core",
+      "category": "Languages & Frameworks",
+      "items": ["TypeScript", "JavaScript ES6", "React.js", "Next.js", "Node.js", "Express.js", "NestJS", "HTML5"]
+    },
+    {
+      "id": "skill-styling",
+      "category": "Styling & State",
+      "items": ["Tailwind CSS", "CSS3", "Bootstrap", "Redux", "Zustand", "Context API", "Responsive Design"]
+    },
+    {
+      "id": "skill-backend",
+      "category": "Backend & Data",
+      "items": ["MongoDB", "MySQL", "PostgreSQL", "Redis", "Prisma", "Sequelize", "REST APIs", "GraphQL"]
+    },
+    {
+      "id": "skill-optimization",
+      "category": "Optimization",
+      "items": ["API Caching", "Browser Caching", "Bundle & Image Optimization", "SSR / SSG (Next.js)"]
+    },
+    {
+      "id": "skill-tools",
+      "category": "Testing & Tools",
+      "items": ["Jest", "React Testing Library", "Playwright", "Postman", "Swagger", "Git & GitHub", "Vercel", "Figma", "CI/CD"]
+    }
   ],
   "experience": [
     {
-      "id": "exp-northstar",
-      "company": "Northstar Studio",
-      "role": "Senior Frontend Engineer",
-      "team": "Product Platform Team",
-      "period": "2024 - Present",
-      "current": true,
-      "currentProject": "Leading the rebuild of a high-conversion marketing platform in Next.js 16, introducing a component-driven authoring workflow for the content team.",
-      "achievements": [
-        "Rebuilt the marketing platform in Next.js, lifting Lighthouse performance from 62 to 98 and cutting editorial publish time by 40%.",
-        "Designed a reusable UI pattern library used across portfolio, commerce, and dashboard surfaces, unifying motion and accessibility defaults.",
-        "Solved a persistent hydration mismatch bug traced to client-only theme injection by moving theme resolution to a server-readable cookie, eliminating flaky render errors.",
-        "Partnered with design and product to ship polished features from concept through launch with strong accessibility defaults."
-      ]
-    },
-    {
-      "id": "exp-blueorbit",
-      "company": "Blue Orbit Labs",
+      "id": "exp-nano",
+      "company": "Nano Information Technology",
       "role": "Full Stack Developer",
-      "team": "SaaS Applications Team",
-      "period": "2022 - 2024",
-      "current": false,
-      "currentProject": "",
+      "team": "Frontend & Full-Stack Development",
+      "period": "March 2024 - Present",
+      "current": true,
+      "currentProject": "Building and maintaining enterprise and government digital platforms \u2014 the PKSF microservice ecosystem (CMS, LMS, Accounting) and a national-scale survey management system, across both frontend and backend.",
       "achievements": [
-        "Built customer-facing SaaS workflows using React, Node.js, and PostgreSQL for project planning and internal operations.",
-        "Created API integrations and dashboard tooling that reduced manual reporting work for operations teams by ~12 hours/week.",
-        "Fixed a recurring race condition in the notifications service by introducing an idempotency layer, removing duplicate alert bursts reported by users.",
-        "Introduced component documentation and deployment guardrails that improved release confidence across the team."
-      ]
-    },
-    {
-      "id": "exp-freelance",
-      "company": "Freelance",
-      "role": "Product Engineer",
-      "team": "Independent",
-      "period": "2020 - 2022",
-      "current": false,
-      "currentProject": "",
-      "achievements": [
-        "Delivered tailored websites and web apps for startups, agencies, and personal brands with a focus on storytelling and performance.",
-        "Scoped, designed, and implemented polished MVPs end to end, from wireframes to production deployment."
+        "Cut PKSF login load time by 95% (20s \u2192 <1s) through asset minification, dependency pruning, and frontend optimization.",
+        "Handled large datasets of millions of records with TanStack Query caching and server-side pagination, significantly reducing server load on a national survey system.",
+        "Converted complex Figma designs into modular, reusable React components, cutting future feature development time by ~30%.",
+        "Built robust multi-step form workflows with React Hook Form + Zod schema validation, ensuring data integrity for complex survey submissions.",
+        "Engineered an automated Accounting module that synced real-time LMS transactions with journal entries, auto-interest calculations, and instant balance sheets.",
+        "Raised reliability with high Playwright E2E coverage and rigorous Postman/Swagger API testing, reducing production regressions.",
+        "Refactored legacy code into a modular, component-based architecture while maintaining and stabilizing existing systems."
       ]
     }
   ],
   "projects": [
     {
-      "id": "proj-aero",
-      "name": "Aero Commerce",
-      "description": "A premium storefront experience focused on motion-driven merchandising and fast checkout flows.",
-      "details": "A polished storefront concept built around animated product storytelling, cart flows, and Stripe checkout. Includes CMS-ready product modules so editors can publish without engineering involvement.",
-      "techStack": ["Next.js 16", "TypeScript", "Tailwind CSS", "GSAP", "Stripe"],
-      "liveUrl": "https://aero-commerce.example.com",
-      "githubUrl": "https://github.com/mynul/aero-commerce",
-      "image": "https://picsum.photos/seed/aero-commerce-cover/1200/800",
+      "id": "proj-pksf",
+      "name": "PKSF \u2014 Microservice Platform",
+      "description": "A large-scale microservice-based platform with CMS, LMS, and Accounting services supporting loan, training, and financial workflows.",
+      "details": "Built and maintained three microservices: a Loan Management Service (borrower lifecycle, application \u2192 sanction \u2192 disbursement \u2192 repayment, waivers/write-offs), a Content Management Service, and an automated Accounting module that syncs real-time LMS transactions with journal entries and generates instant balance sheets. Delivered a 95% login load-time reduction and server-side pagination for large datasets.",
+      "techStack": ["React", "TypeScript", "Node.js", "NestJS", "PostgreSQL", "Prisma"],
+      "liveUrl": "",
+      "githubUrl": "",
+      "image": "https://picsum.photos/seed/pksf-platform/1200/800",
       "featured": true
     },
     {
-      "id": "proj-pulse",
-      "name": "Pulse Dashboard",
-      "description": "A data-rich analytics workspace with live charts, keyboard shortcuts, and an opinionated dark/light theme system.",
-      "details": "Designed for speed, clarity, and high-density data views. Features live chart modules with reusable filters, keyboard-first interactions for power users, and clean contrast theming.",
-      "techStack": ["Next.js", "TypeScript", "Zustand", "Recharts"],
-      "liveUrl": "https://pulse-dashboard.example.com",
-      "githubUrl": "https://github.com/mynul/pulse-dashboard",
-      "image": "https://picsum.photos/seed/pulse-dashboard-cover/1200/800",
+      "id": "proj-bsbr",
+      "name": "BSBR | BBS \u2014 Survey Management",
+      "description": "A high-performance national survey management system handling millions of records with role-based approval workflows.",
+      "details": "Engineered the frontend by converting complex Figma designs into modular, reusable React components. Optimized large-scale data handling with TanStack Query caching and server-side pagination, built robust multi-step form workflows with React Hook Form + Zod, and implemented secure role-based access control (RBAC) and approval workflows across user tiers. Achieved high Playwright E2E coverage to reduce production regressions.",
+      "techStack": ["React.js", "TypeScript", "Context API", "TanStack Query", "Java"],
+      "liveUrl": "",
+      "githubUrl": "",
+      "image": "https://picsum.photos/seed/bsbr-survey/1200/800",
       "featured": true
     },
     {
-      "id": "proj-studio",
-      "name": "Studio Grid",
-      "description": "A modular, CMS-driven portfolio for a creative studio with flexible case-study layouts.",
-      "details": "A visual portfolio CMS with modular case-study blocks and fast editorial workflows. Non-technical teams can publish visually rich case studies quickly with smooth page transitions.",
-      "techStack": ["React", "Vite", "Framer Motion", "Sanity"],
-      "liveUrl": "https://studio-grid.example.com",
-      "githubUrl": "https://github.com/mynul/studio-grid",
-      "image": "https://picsum.photos/seed/studio-grid-cover/1200/800",
+      "id": "proj-bidyapith",
+      "name": "Bidyapith \u2014 School Management",
+      "description": "A school management system focused on employee and teacher attendance tracking and reporting.",
+      "details": "Developed and maintained the employee and teacher attendance management feature using React.js and REST APIs. Integrated backend APIs for attendance tracking, data submission, and real-time status updates; built responsive UI components with form handling and validation; and implemented attendance sheet generation for efficient reporting.",
+      "techStack": ["ReactJS", "TypeScript", "Tailwind CSS", "Laravel (REST APIs)"],
+      "liveUrl": "",
+      "githubUrl": "",
+      "image": "https://picsum.photos/seed/bidyapith-school/1200/800",
       "featured": false
     }
   ]
