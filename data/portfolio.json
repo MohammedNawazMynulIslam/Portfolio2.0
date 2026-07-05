@@ -38,7 +38,7 @@
     {
       "id": "skill-backend",
       "category": "Backend & Data",
-      "items": ["MongoDB", "MySQL", "PostgreSQL", "Redis", "Prisma", "Sequelize", "REST APIs", "GraphQL"]
+      "items": ["MongoDB", "MySQL", "PostgreSQL", "Prisma", "REST APIs", "GraphQL"]
     },
     {
       "id": "skill-optimization",
@@ -59,17 +59,24 @@
       "team": "Frontend & Full-Stack Development",
       "period": "March 2024 - Present",
       "current": true,
-      "currentProject": "Building and maintaining enterprise and government digital platforms \u2014 the PKSF microservice ecosystem (CMS, LMS, Accounting) and a national-scale survey management system, across both frontend and backend.",
-      "achievements": [
-        "Cut PKSF login load time by 95% (20s \u2192 <1s) through asset minification, dependency pruning, and frontend optimization.",
-        "Handled large datasets of millions of records with TanStack Query caching and server-side pagination, significantly reducing server load on a national survey system.",
-        "Converted complex Figma designs into modular, reusable React components, cutting future feature development time by ~30%.",
-        "Built robust multi-step form workflows with React Hook Form + Zod schema validation, ensuring data integrity for complex survey submissions.",
-        "Engineered an automated Accounting module that synced real-time LMS transactions with journal entries, auto-interest calculations, and instant balance sheets.",
-        "Raised reliability with high Playwright E2E coverage and rigorous Postman/Swagger API testing, reducing production regressions.",
-        "Refactored legacy code into a modular, component-based architecture while maintaining and stabilizing existing systems."
-      ]
-    }
+    
+      
+  "currentProject": "Currently developing and maintaining the BSBR/BBS Survey Management System, building high-performance React.js interfaces, optimizing large-scale data handling, implementing secure role-based workflows, and ensuring reliable frontend-backend integration for a national-scale survey platform.",
+
+  "achievements": [
+    "Developed reusable React.js components from complex Figma designs, reducing future feature development time by approximately 30%.",
+    "Optimized handling of millions of survey records using TanStack Query, server-side pagination, and efficient caching strategies, significantly reducing server load.",
+    "Built complex multi-step survey forms with React Hook Form and Zod, ensuring robust validation and data integrity.",
+    "Implemented secure role-based access control (RBAC) and approval workflows for structured operational processes.",
+    "Improved application reliability with high Playwright end-to-end test coverage and comprehensive API testing using Postman and Swagger.",
+    "Reduced PKSF login load time by 95% (20s → <1s) through frontend optimization, asset minification, and dependency cleanup.",
+    "Engineered an automated Accounting module that synchronized LMS transactions with journal entries, auto-interest calculations, and instant balance sheet generation.",
+    "Refactored legacy PKSF applications into a modular, component-based architecture, improving maintainability and enabling faster feature delivery.",
+    "Developed borrower, loan application, disbursement, repayment scheduling, waiver, and write-off workflows for the PKSF Loan Management System.",
+    "Built and maintained employee and teacher attendance management features for the Bidyapith School Management System with REST API integration and reporting."
+  ]
+}
+    
   ],
   "projects": [
     {
@@ -79,8 +86,8 @@
       "details": "Built and maintained three microservices: a Loan Management Service (borrower lifecycle, application \u2192 sanction \u2192 disbursement \u2192 repayment, waivers/write-offs), a Content Management Service, and an automated Accounting module that syncs real-time LMS transactions with journal entries and generates instant balance sheets. Delivered a 95% login load-time reduction and server-side pagination for large datasets.",
       "techStack": ["React", "TypeScript", "Node.js", "NestJS", "PostgreSQL", "Prisma"],
       "liveUrl": "",
-      "githubUrl": "",
-      "image": "https://picsum.photos/seed/pksf-platform/1200/800",
+      "githubUrl": "http://202.51.189.109",
+      "image": "/images/pksf.png",
       "featured": true
     },
     {
@@ -89,9 +96,9 @@
       "description": "A high-performance national survey management system handling millions of records with role-based approval workflows.",
       "details": "Engineered the frontend by converting complex Figma designs into modular, reusable React components. Optimized large-scale data handling with TanStack Query caching and server-side pagination, built robust multi-step form workflows with React Hook Form + Zod, and implemented secure role-based access control (RBAC) and approval workflows across user tiers. Achieved high Playwright E2E coverage to reduce production regressions.",
       "techStack": ["React.js", "TypeScript", "Context API", "TanStack Query", "Java"],
-      "liveUrl": "",
+      "liveUrl": "http://159.13.21.106",
       "githubUrl": "",
-      "image": "https://picsum.photos/seed/bsbr-survey/1200/800",
+      "image": "/images/BSBR.png",
       "featured": true
     },
     {
@@ -100,9 +107,9 @@
       "description": "A school management system focused on employee and teacher attendance tracking and reporting.",
       "details": "Developed and maintained the employee and teacher attendance management feature using React.js and REST APIs. Integrated backend APIs for attendance tracking, data submission, and real-time status updates; built responsive UI components with form handling and validation; and implemented attendance sheet generation for efficient reporting.",
       "techStack": ["ReactJS", "TypeScript", "Tailwind CSS", "Laravel (REST APIs)"],
-      "liveUrl": "",
+      "liveUrl": "https://self.bidyapith.com/auth",
       "githubUrl": "",
-      "image": "https://picsum.photos/seed/bidyapith-school/1200/800",
+      "image": "/images/bidthapit.png",
       "featured": false
     }
   ]

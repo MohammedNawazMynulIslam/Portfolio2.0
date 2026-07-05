@@ -76,7 +76,7 @@ export function Experience({ experience }: ExperienceProps) {
                 ) : null}
 
                 {item.current && item.currentProject ? (
-                  <div className="mt-4 rounded-xl border border-border bg-card p-5">
+                  <div className="mt-8 rounded-xl border border-border bg-card p-5">
                     <p className="label text-accent">Current project</p>
                     <p className="mt-2 leading-relaxed text-foreground">
                       {item.currentProject}
@@ -85,7 +85,7 @@ export function Experience({ experience }: ExperienceProps) {
                 ) : null}
 
                 {item.achievements.length > 0 ? (
-                  <ul className="mt-5 space-y-3">
+                  <ul className="mt-5 space-y-3 my-7">
                     {item.achievements.map((achievement, i) => (
                       <li
                         key={i}
