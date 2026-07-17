@@ -70,13 +70,15 @@ export function Experience({ experience }: ExperienceProps) {
 
               <div className="lg:col-span-8">
                 {item.current ? (
-                  <span className="inline-flex items-center rounded-full border border-accent/40 bg-accent-dim px-3 py-1 label text-accent">
-                    Current
-                  </span>
+                  <div className="mb-20">
+                    <span className="inline-flex items-center rounded-full border border-accent/40 bg-accent-dim px-3 py-1 label text-accent">
+                      Current
+                    </span>
+                  </div>
                 ) : null}
 
                 {item.current && item.currentProject ? (
-                  <div className="mt-8 rounded-xl border border-border bg-card p-5">
+                  <div className="rounded-xl border border-border bg-card p-5">
                     <p className="label text-accent">Current project</p>
                     <p className="mt-2 leading-relaxed text-foreground">
                       {item.currentProject}

@@ -11,7 +11,7 @@ interface SectionProps {
 
 export function Section({ id, index, heading, meta, children }: SectionProps) {
   return (
-    <section id={id} className="scroll-mt-24 py-24 sm:py-32">
+    <section id={id} className="scroll-mt-24 py-10 sm:py-20">
       <div className="container-px">
         <div className="flex items-end justify-between gap-4 border-b border-border pb-6">
           <div className="flex items-baseline gap-4">

@@ -17,8 +17,8 @@ function parseStat(value: string): { to: number; suffix: string } {
 
 export function About({ about, skills }: AboutProps) {
   return (
-    <Section id="about" index="(01)" heading="About" meta="Profile / Skills">
-      <div className="grid gap-10 lg:grid-cols-12">
+    <Section id="about" index="(01)" heading="About" meta="Profile / Skills" >
+      <div className="grid gap-10 lg:grid-cols-12 p-5">
         <div className="lg:col-span-8">
           <TextReveal
             as="p"
@@ -46,7 +46,7 @@ export function About({ about, skills }: AboutProps) {
         })}
       </div>
 
-      <div className="mt-16 grid gap-10 lg:grid-cols-12">
+      <div className="grid gap-10 pt-16 lg:grid-cols-12 border-amber-950">
         <Reveal className="lg:col-span-7">
           <p className="label text-accent">Current status</p>
           <p className="mt-4 text-lg leading-relaxed text-foreground">
