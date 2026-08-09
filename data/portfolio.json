@@ -85,8 +85,8 @@
       "description": "A large-scale microservice-based platform with CMS, LMS, and Accounting services supporting loan, training, and financial workflows.",
       "details": "Built and maintained three microservices: a Loan Management Service (borrower lifecycle, application \u2192 sanction \u2192 disbursement \u2192 repayment, waivers/write-offs), a Content Management Service, and an automated Accounting module that syncs real-time LMS transactions with journal entries and generates instant balance sheets. Delivered a 95% login load-time reduction and server-side pagination for large datasets.",
       "techStack": ["React", "TypeScript", "Node.js", "NestJS", "PostgreSQL", "Prisma"],
-      "liveUrl": "",
-      "githubUrl": "http://202.51.189.109",
+      "liveUrl": "http://202.51.189.109",
+      "githubUrl": "",
       "image": "/images/pksf.png",
       "featured": true
     },

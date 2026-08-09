@@ -68,36 +68,36 @@ export function Experience({ experience }: ExperienceProps) {
                 </p>
               </div>
 
-              <div className="lg:col-span-8">
-                {item.current ? (
-                  <span className="inline-flex items-center rounded-full border border-accent/40 bg-accent-dim px-3 py-1 label text-accent">
-                    Current
-                  </span>
-                ) : null}
+              <div className="lg:col-span-8 flex flex-col gap-6">
+  {item.current ? (
+    <span className="inline-flex w-fit items-center rounded-full border border-accent/40 bg-accent-dim px-3 py-1 label text-accent">
+      Current
+    </span>
+  ) : null}
 
-                {item.current && item.currentProject ? (
-                  <div className="mt-8 rounded-xl border border-border bg-card p-5">
-                    <p className="label text-accent">Current project</p>
-                    <p className="mt-2 leading-relaxed text-foreground">
-                      {item.currentProject}
-                    </p>
-                  </div>
-                ) : null}
+  {item.current && item.currentProject ? (
+    <div className="rounded-xl border border-border bg-card p-5">
+      <p className="label text-accent">Current project</p>
+      <p className="mt-2 leading-relaxed text-foreground">
+        {item.currentProject}
+      </p>
+    </div>
+  ) : null}
 
-                {item.achievements.length > 0 ? (
-                  <ul className="mt-5 space-y-3 my-7">
-                    {item.achievements.map((achievement, i) => (
-                      <li
-                        key={i}
-                        className="flex gap-3 text-sm leading-relaxed text-muted"
-                      >
-                        <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-                        <span>{achievement}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
+  {item.achievements.length > 0 ? (
+    <ul className="space-y-3">
+      {item.achievements.map((achievement, i) => (
+        <li
+          key={i}
+          className="flex gap-3 text-sm leading-relaxed text-muted"
+        >
+          <CircleCheck className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+          <span>{achievement}</span>
+        </li>
+      ))}
+    </ul>
+  ) : null}
+</div>
             </div>
           </div>
         </Reveal>
