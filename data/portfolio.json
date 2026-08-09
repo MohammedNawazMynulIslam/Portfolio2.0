@@ -33,12 +33,12 @@
     {
       "id": "skill-styling",
       "category": "Styling & State",
-      "items": ["Tailwind CSS", "CSS3", "Bootstrap", "Redux", "Zustand", "Context API", "Responsive Design"]
+      "items": ["Tailwind CSS", "CSS3", "Bootstrap", "Redux", "Context API"]
     },
     {
       "id": "skill-backend",
       "category": "Backend & Data",
-      "items": ["MongoDB", "MySQL", "PostgreSQL", "Prisma", "REST APIs", "GraphQL"]
+      "items": ["MongoDB", "MySQL", "PostgreSQL", "Prisma", "REST APIs"]
     },
     {
       "id": "skill-optimization",
@@ -48,7 +48,7 @@
     {
       "id": "skill-tools",
       "category": "Testing & Tools",
-      "items": ["Jest", "React Testing Library", "Playwright", "Postman", "Swagger", "Git & GitHub", "Vercel", "Figma", "CI/CD"]
+      "items": ["Playwright", "Postman", "Swagger", "Git & GitHub", "Vercel", "Figma", "CI/CD"]
     }
   ],
   "experience": [
@@ -69,7 +69,7 @@
     "Built complex multi-step survey forms with React Hook Form and Zod, ensuring robust validation and data integrity.",
     "Implemented secure role-based access control (RBAC) and approval workflows for structured operational processes.",
     "Improved application reliability with high Playwright end-to-end test coverage and comprehensive API testing using Postman and Swagger.",
-    "Reduced PKSF login load time by 95% (20s → <1s) through frontend optimization, asset minification, and dependency cleanup.",
+    "Reduced PKSF login load time by 95% (20s → <0.63ms) through frontend optimization, asset minification, and dependency cleanup.",
     "Engineered an automated Accounting module that synchronized LMS transactions with journal entries, auto-interest calculations, and instant balance sheet generation.",
     "Refactored legacy PKSF applications into a modular, component-based architecture, improving maintainability and enabling faster feature delivery.",
     "Developed borrower, loan application, disbursement, repayment scheduling, waiver, and write-off workflows for the PKSF Loan Management System.",
